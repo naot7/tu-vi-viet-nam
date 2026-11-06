@@ -81,12 +81,17 @@ export default function ChatPanel({ chart }: ChatPanelProps) {
       }
     } catch (e) {
       const missing = e instanceof Error && e.message === 'api-missing';
-      setMessages(prev => [...prev, {
-        role: 'assistant',
-        content: missing 
-          ? 'Phiên bản nguồn mở chưa cấu hình API giải đoán (/api/interpret). Quý bạn vui lòng cấu hình API Key trong biến môi trường để kích hoạt tính năng luận đoán AI. Bản thân thuật toán an sao lá số hoạt động hoàn toàn offline.' 
-          : 'Giải đoán thất bại, quý bạn vui lòng kiểm tra cấu hình API hoặc thử lại sau.',
-      }]);
+      const errorContent = missing 
+        ? 'Phiên bản hiện tại chưa cấu hình API giải đoán (/api/interpret). Quý bạn có thể cấu hình API Key trong biến môi trường (.env.local) để kích hoạt tính năng luận đoán AI.' 
+        : 'Giải đoán thất bại, quý bạn vui lòng kiểm tra cấu hình API hoặc thử lại sau.';
+
+      setMessages(prev => {
+        const lastMsg = prev[prev.length - 1];
+        if (lastMsg && lastMsg.role === 'assistant' && lastMsg.content.includes('chưa cấu hình API giải đoán')) {
+          return prev;
+        }
+        return [...prev, { role: 'assistant', content: errorContent }];
+      });
     } finally {
       setLoading(false);
     }

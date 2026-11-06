@@ -237,10 +237,10 @@ Bảng quy tắc lịch sử 4 giai đoạn đổi múi giờ tại Việt Nam:
 
 ## PHẦN 5: DANH SÁCH KIỂM TRA NGHIỆM THU
 
-- [ ] **Tiêu chí 1 (Định dạng thời gian)**: Mọi nơi hiển thị và nhập liệu thời gian đều tuân thủ nghiêm ngặt định dạng `DD/MM/YYYY HH:mm:ss`.
-- [ ] **Tiêu chí 2 (Single Locale `vi-VN`)**: Không còn ký tự chữ Hán hoặc nhãn tiếng Anh thừa trên giao diện và trong `ZiweiChart`.
-- [ ] **Tiêu chí 3 (Song hành Âm - Dương lịch UTC+7)**: Nhập và đối chiếu chính xác lịch Âm - Dương theo múi giờ Việt Nam.
-- [ ] **Tiêu chí 4 (Bối cảnh Việt Nam)**: Font chữ hỗ trợ tiếng Việt, danh nhân Việt Nam, tên cung `Nô Bộc (Giao Hữu)`, thuật ngữ Tử Vi chuẩn Việt.
-- [ ] **Tiêu chí 5 (Chân Thái Dương Thời & Tọa độ 34 Tỉnh/Thành NQ 202/2025/QH15)**: Kinh tuyến chuẩn λ₀ = 105°E (UTC+7, 420 phút), Phương trình thời gian EoT, dữ liệu 34 Tỉnh/Thành phố sau sáp nhập.
-- [ ] **Tiêu chí 6 (Giờ mùa hè lịch sử Việt Nam)**: Nhận diện chính xác 4 giai đoạn đổi giờ lịch sử Việt Nam và hỗ trợ nút chuyển đổi về UTC+7.
-- [ ] **Tiêu chí 7 (Kho thư tịch cổ)**: Dịch trọn vẹn cả 3 bộ cổ thư sang Quốc ngữ kèm âm Hán-Việt.
+- [x] **Tiêu chí 1 (Định dạng thời gian)**: Mọi nơi hiển thị và nhập liệu thời gian đều tuân thủ nghiêm ngặt định dạng `DD/MM/YYYY HH:mm:ss`.
+- [x] **Tiêu chí 2 (Single Locale `vi-VN`)**: Không còn ký tự chữ Hán hoặc nhãn tiếng Anh thừa trên giao diện và trong `ZiweiChart`.
+- [x] **Tiêu chí 3 (Song hành Âm - Dương lịch UTC+7)**: Nhập và đối chiếu chính xác lịch Âm - Dương theo múi giờ Việt Nam.
+- [x] **Tiêu chí 4 (Bối cảnh Việt Nam)**: Font chữ hỗ trợ tiếng Việt, danh nhân Việt Nam, tên cung `Nô Bộc (Giao Hữu)`, thuật ngữ Tử Vi chuẩn Việt.
+- [x] **Tiêu chí 5 (Chân Thái Dương Thời & Tọa độ 34 Tỉnh/Thành NQ 202/2025/QH15)**: Kinh tuyến chuẩn λ₀ = 105°E (UTC+7, 420 phút), Phương trình thời gian EoT, dữ liệu 34 Tỉnh/Thành phố sau sáp nhập.
+- [x] **Tiêu chí 6 (Giờ mùa hè lịch sử Việt Nam)**: Nhận diện chính xác 4 giai đoạn đổi giờ lịch sử Việt Nam và hỗ trợ nút chuyển đổi về UTC+7.
+- [x] **Tiêu chí 7 (Kho thư tịch cổ)**: Dịch trọn vẹn cả 3 bộ cổ thư sang Quốc ngữ kèm âm Hán-Việt.

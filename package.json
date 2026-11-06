@@ -1,6 +1,22 @@
 {
   "name": "tu-vi-viet-nam",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "description": "Tử Vi Đẩu Số Việt Nam · Hệ thống an sao chuẩn hóa 34 tỉnh thành theo NQ 202/2025/QH15, 4 mốc giờ lịch sử VN và Việt hóa toàn diện theo trường phái Nghê Hải Hạ",
+  "author": "Toàn Võ <naot7>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/naot7/tu-vi-viet-nam.git"
+  },
+  "keywords": [
+    "tu-vi",
+    "ziwei",
+    "tu-vi-dau-so",
+    "nghe-hai-ha",
+    "viet-nam",
+    "34-tinh-thanh",
+    "chan-thai-duong-thoi"
+  ],
   "private": true,
   "scripts": {
     "dev": "next dev",
