@@ -64,8 +64,8 @@ export default function BirthForm({ onSubmit, loading, initialData, onFormSave, 
     clockMinute: initialData?.clockMinute ?? '0',
     clockSecond: initialData?.clockSecond ?? '0',
     unknownTime: initialData?.unknownTime ?? false,
-    province: initialData?.province ?? 'Hà Nội',
-    city: initialData?.city ?? 'Hà Nội',
+    province: initialData?.province ?? 'Thành phố Hà Nội',
+    city: initialData?.city ?? 'Trung tâm Hà Nội (Hoàn Kiếm)',
     longitude: initialData?.longitude ?? DEFAULT_LONGITUDE,
     gender: initialData?.gender ?? 'male',
     calendarType: initialData?.calendarType ?? 'solar',
@@ -124,7 +124,8 @@ export default function BirthForm({ onSubmit, loading, initialData, onFormSave, 
   const handleApplyHistoricalTzAdjust = () => {
     if (!historicalTz || historicalTz.deltaMinutes === 0) return;
     const totalMinutes = (parseInt(form.clockHour, 10) || 0) * 60 + (parseInt(form.clockMinute, 10) || 0);
-    const adjustedMinutes = (totalMinutes - historicalTz.deltaMinutes + 1440) % 1440;
+    // deltaMinutes mang dấu âm (-60 hoặc -120), dùng phép cộng để lùi giờ về UTC+7 chuẩn xác
+    const adjustedMinutes = (totalMinutes + historicalTz.deltaMinutes + 1440) % 1440;
     const newH = Math.floor(adjustedMinutes / 60);
     const newM = adjustedMinutes % 60;
     setForm(prev => ({
@@ -568,7 +569,7 @@ export default function BirthForm({ onSubmit, loading, initialData, onFormSave, 
               cursor: 'pointer',
             }}
           >
-            Tự động quy đổi về UTC+7 (-{historicalTz.deltaMinutes} phút)
+            Tự động quy đổi về UTC+7 ({historicalTz.deltaMinutes} phút)
           </button>
         </motion.div>
       )}

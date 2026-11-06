@@ -20,7 +20,7 @@ function formAt(clockHour: string, clockMinute: string, longitude: number): Birt
     clockHour,
     clockMinute,
     unknownTime: false,
-    province: longitude === 120 ? '' : '测试',
+    province: longitude === 105 ? '' : 'Thử nghiệm',
     city: '',
     longitude,
     gender: 'male',
@@ -29,13 +29,14 @@ function formAt(clockHour: string, clockMinute: string, longitude: number): Birt
 
 const pick = (b: ReturnType<typeof formToBirthInfo>) => ({ year: b.year, month: b.month, day: b.day, hour: b.hour });
 
+// Kiểm tra quy tắc đổi ngày theo Chân Thái Dương Thời (Chuẩn kinh tuyến Việt Nam 105°E, UTC+7)
 const cases: Array<[string, string, number, { year: number; month: number; day: number; hour: number }, string]> = [
-  ['23', '30', 120, { year: 2000, month: 2, day: 1, hour: 0 }, '东经 120° 23:30 晚子时 → 次日子时'],
-  ['0', '30', 120, { year: 2000, month: 1, day: 31, hour: 0 }, '东经 120° 00:30 早子时 → 本日子时'],
-  ['23', '30', 100, { year: 2000, month: 1, day: 31, hour: 11 }, '东经 100° 23:30（真太阳时 22:10）→ 本日亥时'],
-  ['22', '30', 135, { year: 2000, month: 2, day: 1, hour: 0 }, '东经 135° 22:30（真太阳时 23:30）→ 次日子时'],
-  ['0', '30', 80, { year: 2000, month: 1, day: 30, hour: 11 }, '东经 80° 00:30（真太阳时前一日 21:50）→ 前一日亥时'],
-  ['23', '50', 130, { year: 2000, month: 2, day: 1, hour: 0 }, '东经 130° 23:50（真太阳时次日 00:30）→ 次日子时'],
+  ['23', '30', 105, { year: 2000, month: 2, day: 1, hour: 0 }, 'Kinh độ 105° 23:30 Giờ Tý muộn → Ngày hôm sau giờ Tý'],
+  ['0', '30', 105, { year: 2000, month: 1, day: 31, hour: 0 }, 'Kinh độ 105° 00:30 Giờ Tý sớm → Ngày hôm nay giờ Tý'],
+  ['23', '30', 85, { year: 2000, month: 1, day: 31, hour: 11 }, 'Kinh độ 85° 23:30 (Chân Thái Dương 22:10) → Ngày hôm nay giờ Hợi'],
+  ['22', '30', 120, { year: 2000, month: 2, day: 1, hour: 0 }, 'Kinh độ 120° 22:30 (Chân Thái Dương 23:30) → Ngày hôm sau giờ Tý'],
+  ['0', '30', 65, { year: 2000, month: 1, day: 30, hour: 11 }, 'Kinh độ 65° 00:30 (Chân Thái Dương hôm trước 21:50) → Ngày hôm trước giờ Hợi'],
+  ['23', '50', 115, { year: 2000, month: 2, day: 1, hour: 0 }, 'Kinh độ 115° 23:50 (Chân Thái Dương hôm sau 00:30) → Ngày hôm sau giờ Tý'],
 ];
 
 for (const [h, mi, lon, expected, label] of cases) {

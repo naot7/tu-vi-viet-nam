@@ -57,29 +57,43 @@ export function getParagraphById(id: string) {
  * 简单子字符串匹配（不分词，对中文 OK）
  * 大小写不敏感、繁简转换暂不支持
  */
+/**
+ * Tìm kiếm toàn văn cổ thư (hỗ trợ không phân biệt hoa thường và tìm trên cả bản dịch nghĩa)
+ */
 export function searchClassics(query: string, limit = 30): SearchHit[] {
-  const q = query.trim();
+  const q = query.trim().toLowerCase();
   if (q.length < 1) return [];
 
   const hits: SearchHit[] = [];
   for (const book of ALL_BOOKS) {
     for (const chapter of book.chapters) {
       for (const p of chapter.paragraphs) {
-        const idx = p.text.indexOf(q);
-        if (idx < 0) continue;
+        const textLower = p.text.toLowerCase();
+        const transLower = (p.translation || '').toLowerCase();
 
-        // 提取上下文（前后各 40 字）
-        const start = Math.max(0, idx - 40);
-        const end = Math.min(p.text.length, idx + q.length + 40);
-        const before = p.text.slice(start, idx);
-        const matched = p.text.slice(idx, idx + q.length);
-        const after = p.text.slice(idx + q.length, end);
+        let matchField: 'text' | 'translation' | null = null;
+        let matchIdx = textLower.indexOf(q);
+        if (matchIdx >= 0) {
+          matchField = 'text';
+        } else {
+          matchIdx = transLower.indexOf(q);
+          if (matchIdx >= 0) matchField = 'translation';
+        }
+
+        if (!matchField || matchIdx < 0) continue;
+
+        const sourceStr = matchField === 'text' ? p.text : p.translation!;
+        const start = Math.max(0, matchIdx - 40);
+        const end = Math.min(sourceStr.length, matchIdx + q.length + 40);
+        const before = sourceStr.slice(start, matchIdx);
+        const matched = sourceStr.slice(matchIdx, matchIdx + q.length);
+        const after = sourceStr.slice(matchIdx + q.length, end);
 
         const snippet = (start > 0 ? '…' : '')
           + escapeHtml(before)
           + `<mark>${escapeHtml(matched)}</mark>`
           + escapeHtml(after)
-          + (end < p.text.length ? '…' : '');
+          + (end < sourceStr.length ? '…' : '');
 
         hits.push({
           bookSlug: book.slug,

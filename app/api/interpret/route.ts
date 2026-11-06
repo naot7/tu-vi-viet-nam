@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import type { ZiweiChart, Palace } from '@/lib/ziwei/types';
-import { BRANCHES } from '@/lib/ziwei/constants';
+import { BRANCHES, STEMS } from '@/lib/ziwei/constants';
 import { detectPatterns, getMingGongSummary } from '@/lib/ziwei/patterns';
 
 export const runtime = 'nodejs';
@@ -56,9 +56,10 @@ function generateOfflineInterpretation(chart: ZiweiChart, userPrompt: string): s
   // 1. Luận đoán theo chủ đề Tình Duyên
   if (userPrompt.includes('tình duyên') || userPrompt.includes('Phu Thê')) {
     const phuThe = chart.palaces.find(p => p.name.includes('Phu Thê') || p.name === 'Phu Thê');
+    const phuTheBranchName = phuThe ? (BRANCHES[phuThe.branch] ?? '') : '';
     const stars = phuThe?.stars.filter(s => s.type === 'major').map(s => s.name).join(', ') || 'Vô chính diệu';
     return `**【Cục diện Tình Duyên & Hôn Nhân】**
-Cung Phu Thê tại địa chi **${phuThe?.branch ?? ''}**, có chính tinh tọa thủ: **${stars}**.
+Cung Phu Thê tại địa chi **${phuTheBranchName}**, có chính tinh tọa thủ: **${stars}**.
 
 **【Phân tích chuyên sâu】**
 Theo hệ thống Tử Vi Đẩu Số Nghê Hải Hạ, cung Phu Thê thể hiện nhân duyên, tính cách người phối ngẫu và sự hòa hợp gia đạo. ${stars !== 'Vô chính diệu' ? `Sao ${stars} thủ cung chủ về đối phương là người có bản lĩnh, khí chất rõ rệt.` : 'Cung Phu Thê vô chính diệu chủ về duyên phận kết hợp muộn màng hoặc cần sự tương kính như tân để bền vững.'}
@@ -76,9 +77,10 @@ Thầy Nghê Hải Hạ thường nhấn mạnh: "Trong hôn nhân, quan trọng
   // 2. Luận đoán theo chủ đề Sự Nghiệp / Công Danh
   if (userPrompt.includes('sự nghiệp') || userPrompt.includes('Quan Lộc')) {
     const quanLoc = chart.palaces.find(p => p.name.includes('Quan Lộc') || p.name === 'Quan Lộc');
+    const quanLocBranchName = quanLoc ? (BRANCHES[quanLoc.branch] ?? '') : '';
     const stars = quanLoc?.stars.filter(s => s.type === 'major').map(s => s.name).join(', ') || 'Vô chính diệu';
     return `**【Cục diện Sự Nghiệp & Công Danh】**
-Cung Quan Lộc tọa tại **${quanLoc?.branch ?? ''}**, có chính tinh: **${stars}**.
+Cung Quan Lộc tọa tại **${quanLocBranchName}**, có chính tinh: **${stars}**.
 
 **【Phân tích đường công danh】**
 ${stars !== 'Vô chính diệu' ? `Sao ${stars} tại Quan Lộc biểu hiện năng lực chuyên môn và chí tiến thủ mạnh mẽ. Bạn hợp với các công việc đòi hỏi tầm nhìn chiến lược, quản trị hoặc chuyên gia sâu trong lĩnh vực của mình.` : 'Cung Quan Lộc vô chính diệu hợp với việc phát triển chuyên môn vững chắc hoặc làm việc trong các tổ chức lớn có nền tảng ổn định.'}
@@ -96,9 +98,10 @@ Theo lời dạy của Thầy Nghê Hải Hạ: "Người quân tử biết th�
   // 3. Luận đoán theo chủ đề Tài Vận
   if (userPrompt.includes('tài vận') || userPrompt.includes('Tài Bạch')) {
     const taiBach = chart.palaces.find(p => p.name.includes('Tài Bạch') || p.name === 'Tài Bạch');
+    const taiBachBranchName = taiBach ? (BRANCHES[taiBach.branch] ?? '') : '';
     const stars = taiBach?.stars.filter(s => s.type === 'major').map(s => s.name).join(', ') || 'Vô chính diệu';
     return `**【Cục diện Tài Vận & Tiền Tài】**
-Cung Tài Bạch tọa tại **${taiBach?.branch ?? ''}**, có chính tinh: **${stars}**.
+Cung Tài Bạch tọa tại **${taiBachBranchName}**, có chính tinh: **${stars}**.
 
 **【Phương thức tụ tài】**
 Cung Tài Bạch cai quản nguồn tiền bạc và cách thức kiếm tiền. ${stars !== 'Vô chính diệu' ? `Sao ${stars} chủ về đường tài vận rõ ràng, dòng tiền lưu chuyển tích cực thông qua năng lực thực tế.` : 'Tài Bạch vô chính diệu nên tích lũy bằng tài sản cố định hoặc điền sản, tránh đầu tư mạo hiểm đầu cơ.'}
@@ -116,9 +119,11 @@ Cần phối hợp xem xét cung Điền Trạch để đánh giá khả năng t
     const targetPalaceName = palaceMatch[1];
     const targetPalace = chart.palaces.find(p => p.name.includes(targetPalaceName) || targetPalaceName.includes(p.name));
     if (targetPalace) {
+      const targetBranchName = BRANCHES[targetPalace.branch] ?? '';
+      const targetStemName = STEMS[targetPalace.stem] ?? '';
       const stars = targetPalace.stars.filter(s => s.type === 'major').map(s => `${s.name} (${s.brightness ?? 'Bình'})`).join(', ') || 'Vô chính diệu';
       return `**【Định tính cung ${targetPalace.name}】**
-Cung tọa thủ tại địa chi **${targetPalace.branch}**, Cung can là **${targetPalace.stem}**.
+Cung tọa thủ tại địa chi **${targetBranchName}**, Cung can là **${targetStemName}**.
 Chính tinh tọa thủ: **${stars}**.
 
 **【Luận giải tinh diệu & Cổ quyết】**

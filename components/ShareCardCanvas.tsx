@@ -11,20 +11,24 @@ import { SITE_HOST } from '@/lib/site';
 
 const BRANCH_NAMES = ['Tý', 'Sửu', 'Dần', 'Mão', 'Thìn', 'Tỵ', 'Ngọ', 'Mùi', 'Thân', 'Dậu', 'Tuất', 'Hợi'];
 
-// Bố cục địa bàn 12 cung Tử Vi
+// Bố cục địa bàn 12 cung Tử Vi chuẩn xác (khớp với ChartBoard)
 const ZHIWEI_LAYOUT: Array<{ branch: number; row: number; col: number }> = [
-  { branch: 2,  row: 0, col: 0 }, // Dần
-  { branch: 3,  row: 0, col: 1 }, // Mão
-  { branch: 4,  row: 0, col: 2 }, // Thìn
-  { branch: 5,  row: 0, col: 3 }, // Tỵ
-  { branch: 1,  row: 1, col: 0 }, // Sửu
-  { branch: 6,  row: 1, col: 3 }, // Ngọ
-  { branch: 0,  row: 2, col: 0 }, // Tý
-  { branch: 7,  row: 2, col: 3 }, // Mùi
-  { branch: 11, row: 3, col: 0 }, // Hợi
-  { branch: 10, row: 3, col: 1 }, // Tuất
-  { branch: 9,  row: 3, col: 2 }, // Dậu
-  { branch: 8,  row: 3, col: 3 }, // Thân
+  // Hàng 1 (trên cùng): Tỵ, Ngọ, Mùi, Thân
+  { branch: 5,  row: 0, col: 0 },
+  { branch: 6,  row: 0, col: 1 },
+  { branch: 7,  row: 0, col: 2 },
+  { branch: 8,  row: 0, col: 3 },
+  // Hàng 2: Thìn (trái), Dậu (phải)
+  { branch: 4,  row: 1, col: 0 },
+  { branch: 9,  row: 1, col: 3 },
+  // Hàng 3: Mão (trái), Tuất (phải)
+  { branch: 3,  row: 2, col: 0 },
+  { branch: 10, row: 2, col: 3 },
+  // Hàng 4 (dưới cùng): Dần, Sửu, Tý, Hợi
+  { branch: 2,  row: 3, col: 0 },
+  { branch: 1,  row: 3, col: 1 },
+  { branch: 0,  row: 3, col: 2 },
+  { branch: 11, row: 3, col: 3 },
 ];
 
 interface ShareCardProps {

@@ -23,7 +23,7 @@
     "build": "next build --webpack",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "test": "tsx scripts/regression/dst-vn.test.ts && tsx scripts/regression/famous-hour-consistency.test.ts && tsx scripts/regression/clock-adjust.test.ts && tsx scripts/regression/dst-cn.test.ts"
+    "test": "tsx scripts/regression/dst-vn.test.ts && tsx scripts/regression/famous-hour-consistency.test.ts && tsx scripts/regression/clock-adjust.test.ts && tsx scripts/regression/gender-validation.test.ts && tsx scripts/regression/solar-date-exists.test.ts && tsx scripts/regression/form-true-solar-day.test.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.27.0",

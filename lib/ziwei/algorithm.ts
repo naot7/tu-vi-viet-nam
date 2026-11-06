@@ -374,16 +374,23 @@ export function calcYinYangGender(yearStem: number, gender: 'male' | 'female'): 
 // ─── 亮度映射 ────────────────────────────────────────────────────
 function mapBrightness(b?: string): 'bright' | 'normal' | 'dim' {
   if (!b) return 'normal';
-  if (b === '庙' || b === '旺') return 'bright';
-  if (b === '陷' || b === '不' || b === '闲') return 'dim';
+  if (b === '庙' || b === '旺' || b === 'Miếu' || b === 'Vượng') return 'bright';
+  if (b === '陷' || b === '不' || b === '闲' || b === 'Hãm' || b === 'Bất' || b === 'Nhàn') return 'dim';
   return 'normal';
 }
 
-/** 从 iztro 原始亮度文本中提取标准 7 档之一 */
+/** Từ chuỗi độ sáng gốc của iztro hoặc trường phái, chuẩn hóa sang StarBrightness tiếng Việt */
 function extractRawBrightness(b?: string): import('./types').StarBrightness | undefined {
   if (!b) return undefined;
-  const valid: import('./types').StarBrightness[] = ['庙', '旺', '得', '利', '平', '不', '闲', '陷', '地'];
-  for (const x of valid) {
+  const mapCnToVi: Record<string, import('./types').StarBrightness> = {
+    '庙': 'Miếu', '旺': 'Vượng', '得': 'Đắc', '利': 'Lợi',
+    '平': 'Bình', '不': 'Bất', '闲': 'Nhàn', '陷': 'Hãm', '地': 'Địa',
+  };
+  if (mapCnToVi[b]) return mapCnToVi[b];
+  const validVi: import('./types').StarBrightness[] = [
+    'Miếu', 'Vượng', 'Đắc', 'Lợi', 'Bình', 'Bất', 'Nhàn', 'Hãm', 'Địa'
+  ];
+  for (const x of validVi) {
     if (b.includes(x)) return x;
   }
   return undefined;
