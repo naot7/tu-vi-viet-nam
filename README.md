@@ -73,9 +73,10 @@ Dự án khắc phục toàn diện những hạn chế của các phần mềm 
 - **Node.js**: phiên bản `>= 18.18.0`
 - **npm** / **pnpm** / **yarn**
 
-### 1. Di chuyển vào thư mục dự án
+### 1. Sao chép kho mã nguồn (Clone Repository)
 ```bash
-cd /Users/toanvo/Documents/Tuvi/tu-vi-viet-nam
+git clone https://github.com/naot7/tu-vi-viet-nam.git
+cd tu-vi-viet-nam
 ```
 
 ### 2. Cài đặt các gói phụ thuộc

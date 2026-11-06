@@ -62,7 +62,8 @@ The system inherits the authentic astrological lineage of **Master Ni Haixia (å€
 
 ```bash
 # Clone and enter directory
-cd /Users/toanvo/Documents/Tuvi/tu-vi-viet-nam
+git clone https://github.com/naot7/tu-vi-viet-nam.git
+cd tu-vi-viet-nam
 
 # Install dependencies
 npm install
